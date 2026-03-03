@@ -9,8 +9,6 @@ describe('regex-gen', () => {
 			maxOutputLen: 64,
 		});
 
-		expect(s.length).toBe(3 + 4); // dev/test + 4
-		expect(['dev', 'test']).toContain(s.slice(0, 4));
-		expect(s.slice(-4)).toMatch(/^[a-z0-9]{4}$/);
+		expect(s).toMatch(/^(dev|test)[a-z0-9]{4}$/);
 	});
 });
