@@ -12,7 +12,8 @@ describe('batchRegisterImpl', () => {
 		const res = await batchRegisterImpl(
 			{
 				n: 5,
-				rules: ['u[0-9]{2}'],
+				// Deterministic collision: always generates the same local-part.
+				rules: ['u00'],
 				domainList: ['example.com'],
 				passwordLen: 8,
 				maxAttempts: 5, // intentionally too small
