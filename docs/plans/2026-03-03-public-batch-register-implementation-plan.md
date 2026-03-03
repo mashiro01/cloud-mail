@@ -13,7 +13,7 @@
 ### Task 1: Add Unit Test Scaffold For Regex Generator
 
 **Files:**
-- Create: `mail-worker/test/regex-gen.spec.js`
+- Create: `mail-worker/test/unit/regex-gen.spec.js`
 
 **Step 1: Write the failing test**
 
@@ -41,7 +41,7 @@ describe('regex-gen', () => {
 Run:
 
 ```bash
-cd mail-worker && pnpm exec vitest run test/regex-gen.spec.js
+cd mail-worker && pnpm exec vitest --config vitest.unit.config.js run test/unit/regex-gen.spec.js
 ```
 
 Expected: FAIL because `../src/utils/regex-gen` does not exist.
@@ -49,7 +49,7 @@ Expected: FAIL because `../src/utils/regex-gen` does not exist.
 **Step 3: Commit**
 
 ```bash
-git add mail-worker/test/regex-gen.spec.js
+git add mail-worker/test/unit/regex-gen.spec.js
 git commit -m "test: add regex generator spec"
 ```
 
@@ -80,7 +80,7 @@ Hard errors:
 **Step 2: Run test to verify it passes**
 
 ```bash
-cd mail-worker && pnpm exec vitest run test/regex-gen.spec.js
+cd mail-worker && pnpm exec vitest --config vitest.unit.config.js run test/unit/regex-gen.spec.js
 ```
 
 Expected: PASS.
@@ -97,7 +97,7 @@ git commit -m "feat: add simplified regex generator"
 ### Task 3: Add Unit Tests For Batch Register Core (Partial Success)
 
 **Files:**
-- Create: `mail-worker/test/batch-register-impl.spec.js`
+- Create: `mail-worker/test/unit/batch-register-impl.spec.js`
 
 **Step 1: Write the failing test**
 
@@ -148,7 +148,7 @@ describe('batchRegisterImpl', () => {
 **Step 2: Run test to verify it fails**
 
 ```bash
-cd mail-worker && pnpm exec vitest run test/batch-register-impl.spec.js
+cd mail-worker && pnpm exec vitest --config vitest.unit.config.js run test/unit/batch-register-impl.spec.js
 ```
 
 Expected: FAIL because `batchRegisterImpl` does not exist.
@@ -156,7 +156,7 @@ Expected: FAIL because `batchRegisterImpl` does not exist.
 **Step 3: Commit**
 
 ```bash
-git add mail-worker/test/batch-register-impl.spec.js
+git add mail-worker/test/unit/batch-register-impl.spec.js
 git commit -m "test: add batch register core spec"
 ```
 
@@ -213,7 +213,7 @@ Map errors to reason codes in failures; do not throw for per-attempt failures.
 **Step 2: Run tests**
 
 ```bash
-cd mail-worker && pnpm exec vitest run test/batch-register-impl.spec.js
+cd mail-worker && pnpm exec vitest --config vitest.unit.config.js run test/unit/batch-register-impl.spec.js
 ```
 
 Expected: PASS.
@@ -326,7 +326,7 @@ git commit -m "docs: document public batch register env and API"
 Run targeted tests:
 
 ```bash
-cd mail-worker && pnpm exec vitest run test/regex-gen.spec.js test/batch-register-impl.spec.js
+cd mail-worker && pnpm exec vitest --config vitest.unit.config.js run test/unit/regex-gen.spec.js test/unit/batch-register-impl.spec.js
 ```
 
 Expected: PASS.
