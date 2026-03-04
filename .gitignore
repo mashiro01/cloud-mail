@@ -28,3 +28,5 @@ mail-vue/dist
 
 # Git worktrees
 .worktrees/
+
+a.py

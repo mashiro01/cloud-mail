@@ -48,18 +48,16 @@ function genPassword(rng, len) {
 export async function batchRegisterImpl(input, deps) {
 	const {
 		n,
-		rules,
 		domainList,
 		passwordLen,
 		maxAttempts,
-		maxRepeat,
-		maxOutputLen,
 		minEmailPrefix,
 		emailPrefixFilter
 	} = input;
 
+	let rules = input.rules;
 	if (!Array.isArray(rules) || rules.length === 0) {
-		throw new Error('invalid_env_rules');
+		rules = ['random'];
 	}
 	if (!Array.isArray(domainList) || domainList.length === 0) {
 		throw new Error('invalid_domain_list');
@@ -194,9 +192,10 @@ const batchRegisterService = {
 
 		let rules = parseJsonArrayMaybe(env.BATCH_REGISTER_REGEX_RULES);
 		if (!rules || rules.length === 0) {
-			throw new BizError('BATCH_REGISTER_REGEX_RULES missing or invalid', 400);
+			rules = ['random'];
+		} else {
+			rules = rules.map((s) => String(s)).filter(Boolean);
 		}
-		rules = rules.map((s) => String(s)).filter(Boolean);
 
 		// Domain list: support array value or JSON string.
 		let domainList = env.domain;
