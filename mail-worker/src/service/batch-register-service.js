@@ -3,7 +3,7 @@ import { isDel } from '../const/entity-const';
 import settingService from './setting-service';
 import verifyUtils from '../utils/verify-utils';
 import emailUtils from '../utils/email-utils';
-import { generateFromRule } from '../utils/regex-gen';
+
 import saltHashUtils from '../utils/crypto-utils';
 import roleService from './role-service';
 import userService from './user-service';
@@ -88,17 +88,11 @@ export async function batchRegisterImpl(input, deps) {
 			break;
 		}
 
-		let prefix;
-		try {
-			prefix = generateFromRule(rule, rng, { maxRepeat, maxOutputLen });
-		} catch (e) {
-			failures.push({
-				rule,
-				reason_code: e?.message === 'unsupported_regex' ? 'unsupported_regex' : 'generator_failed',
-				message: e?.message || 'generator_failed'
-			});
-			continue;
+		let prefixLen = parseInt(rule, 10);
+		if (isNaN(prefixLen) || prefixLen < minEmailPrefix || prefixLen > 64) {
+			prefixLen = Math.floor(rng() * 7) + 6; // random length between 6 and 12
 		}
+		let prefix = genPassword(rng, prefixLen).toLowerCase();
 
 		if (typeof prefix !== 'string' || prefix.length === 0) {
 			failures.push({ rule, reason_code: 'generator_failed', message: 'Empty prefix generated' });
